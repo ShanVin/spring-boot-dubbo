@@ -1,5 +1,6 @@
 package com.shanvin.project;
 
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -11,12 +12,14 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Optional;
 
+@EnableDubbo
 @SpringBootApplication
 public class Application {
 
 	private static final Logger logger = LoggerFactory.getLogger("ApplicationLogger");
 
 	public static void main(String[] args) {
+		System.setProperty("dubbo.application.logger", "log4j2");
 		System.setProperty("logPath", getLogPath(args));
 		SpringApplication application = new SpringApplication(Application.class);
 		application.addListeners(new ApplicationPidFileWriter(getPidFile(args)));
